@@ -1,26 +1,18 @@
-# linklist
-link list at problem
-
-// CODE
-
  #include <bits/stdc++.h>
  using namespace std;
- // Creating Node  
+ 
  class Node
  {
  	public :
  		int data ;
  		Node * next;
  	
- //Constructor to initialise data
-	Node (int item)
+ 	Node (int item)
  	{
 		data = item;
  		next = NULL;
 	 }
  };
-
-//Inserting elements in starting of the node 
  
  void push(Node* &head, int data)
  {
@@ -28,28 +20,47 @@ link list at problem
  	new_node->next = (head);
  	head = new_node;
  }
-
-// Inserting elements in the middle of the node
  
+ void append(Node* &head, int new_data) 
+{  
+	Node* new_node = new Node(new_data); 
+
+	Node *temp = head;  
+	if (head == NULL) 
+	{ 
+		head = new_node; 
+		return; 
+	} 
+
+	while (temp->next != NULL) 
+		temp = temp->next; 
+
+	temp->next = new_node; 
+	return; 
+} 
  void Atmiddle(Node* &head, int data, int pos)
  {
  	pos--;
  	Node* new_node = new Node (data);
  	Node* temp=head;
-// Find node after which we have to insert the new element
-
  	while(pos!=1)
  	{
  		temp= temp->next;
  		pos--;
 	}
+	if (temp == NULL)
+	{
+		temp->next = new_node; 
+		return; 
+	}
+	else
+	{
 	new_node->next =  temp->next;
 	temp->next = new_node;
+	}
 }
 
-// Displaying all the elements of the node
- 
- void display(Node* &head)
+void display(Node* &head)
  {
  	Node* temp=head;
  	while (temp != NULL)
@@ -59,8 +70,6 @@ link list at problem
 	 }
  }
  
-// Searching the element in the node.
-
  bool Search(Node* &head, int data)
  {
  	Node* temp = head;
@@ -72,17 +81,103 @@ link list at problem
 	}
 	return false;
  }
-
-// Deleting element from the head.
  
  void deleteatpush(Node* &head)
  { 
+ 	cout<< "Deleting from head :" << head->data << "\n";
  	Node* temp = head;
 	head=head->next;
 	delete temp;	
  }
+ 
+ void deleteatappend(Node* &head)
+ {
+ 	Node* temp = head, *prev;
+ 	while(temp->next != NULL)
+ 	{
+ 		prev = temp;
+ 		temp = temp->next;
+ 	}
+	cout<< "\nDeleting from tail :" << temp->data << "\n";
+	prev->next = NULL;
+	delete temp;
+ }
+ 
+ void deleteatmiddle(Node* &head, int pos)
+ {
+	int POS=pos;
+ 	Node* temp=head, *prev;
+ 	while(pos!=1)
+ 	{
+ 		prev = temp;
+ 		temp= temp->next;
+ 		pos--;
+	}
+	prev->next =  temp->next;
+	cout<< "Deleteting element at position "<<POS<< " is " << temp->data << "\n";
+	delete temp;
+ }
+ // DELETING THE KEY
+ void deletethekey(Node* &head, int key)
+ {
+ 	Node* temp=head, *prev;
+ 	while(temp!=NULL && temp->data != key)
+ 	{
+ 		prev = temp;
+ 		temp= temp->next;
+	}
+	if(temp==NULL)
+		cout << "KEY NOT FOUND. \n";
+	else
+	{
+	prev->next =  temp->next;
+	cout<< "Deleteting element is " << temp->data << "\n";
+	delete temp;
+	}
+ } 
+ // DELETING THE LIST 
+void deleteList(Node* &head)  
+{  
+   	Node* current = head;  
+	Node* next;  
+  
+	while (current != NULL)  
+	{  
+	    next = current->next;  
+	    free(current);  
+	    current = next;  
+	}
+	head = NULL;
+	cout<<"\nLIST IS DELETED.\n";  
+	display(head);
+}
 
-// Main function.
+int cal_len(Node* &head)
+{
+	Node* temp=head;
+	int count=0;
+	while(temp!=NULL)
+	{
+		count ++;
+		temp=temp->next;
+	}
+	return count;	
+}  
+
+int get_nth_node(Node* &head, int index)
+{
+	index--;
+	Node* current = head;
+	int count =0;
+	while(current != NULL)
+	{
+		if(count == index)
+			return (current->data);
+		count ++;
+		current=current->next;
+	}
+	return (-1);
+}
 
  int main()
  {
@@ -94,29 +189,52 @@ link list at problem
  	{
  		int x;
  		cin >>x;
- 		push(head,x);
+ 		append(head,x);
 	 }
-
  	display(head);
- 
-	Atmiddle(head,6,3);
-
- 	cout << "\n New List \n";
-
+ 	int ins, POS;
+ 	/*cout<<"\nENTER ELEMENT TO BE INSERTED IN THE LIST ALONG WITH POSITION.\n";
+ 	cin >> ins>> POS;
+	Atmiddle(head,ins,POS);
+	cout << "New List \n";
  	display(head);
-
+	cout<< "\nPushing the element 10.";
+	push(head, 10);
+ 	cout << "New List \n";
+ 	display(head);
  	int sear;
-	cout <<"\n Enter element to be searched : ";
+	cout <<"\nEnter element to be searched : ";
  	cin >> sear;
-
  	if(Search(head, sear))
  		cout << "Found \n";
  	else
  		cout << "not found \n";
-
  	deleteatpush(head);
-
+ 	cout << "New List \n";
  	display(head);
-
+ 	deleteatappend(head);
+ 	cout << "New List \n";
+	display(head);
+ 	cout<<"\nENTER POSITION OF THE  ELEMENT TO BE DELETED IN THE LIST.\n";
+ 	cin >>POS;
+	deleteatmiddle(head,POS);
+	cout << "New List \n";
+ 	display(head);
+ 	cout<<"\nENTER THE KEY TO BE DELETED IN THE LIST.\n";
+ 	cin >>ins;
+	deletethekey(head,ins);
+	cout << "New List \n";
+ 	display(head);
+ 	cout<< "Deleting list.\n";
+ 	deleteList(head);
+ 	*/
+ 	//Length of list 
+ 	cout << "\nThe length of list is : "<<cal_len(head);
+ 	cout << "\nEnter the index to found the value of :";
+	cin >> n;
+	//Index from starting of link list.
+	cout << "\nThe value at index "<<n << " is : "<<get_nth_node(head,n); 
+	//Index from end of link list.
+	cout << "\nThe value at index "<<n << " from end is : "<<get_nth_node(head,(cal_len(head)-n+1)); 
  	return 0;
- } 
+ }
