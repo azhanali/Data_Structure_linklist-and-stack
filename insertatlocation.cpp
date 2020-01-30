@@ -61,7 +61,7 @@
  	{
  		int x;
  		cin >>x;
- 		append(head,x);
+ 		push(head,x);
 	 }
  	display(head);
  	int ins, POS;
