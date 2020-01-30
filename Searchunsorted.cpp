@@ -39,7 +39,7 @@ int main()
  	{
  		int x;
  		cin >>x;
- 		append(head,x);
+ 		push(head,x);
 	 }
  	int sear;
 	cout <<"\nEnter element to be searched : ";
