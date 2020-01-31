@@ -68,7 +68,7 @@
  	cout<<"\nENTER ELEMENT TO BE INSERTED IN THE LIST ALONG WITH POSITION.\n";
  	cin >> ins>> POS;
 	Atmiddle(head,ins,POS);
-	cout << "New List \n";
+	cout << "New List  \n";
  	display(head);
   return 0;
  }
