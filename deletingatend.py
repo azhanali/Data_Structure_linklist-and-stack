@@ -20,12 +20,17 @@
  	new_node->next = (head);
  	head = new_node;
  }
- void deleteatpush(Node* &head)
- { 
- 	cout<< "Deleting from head :" << head->data << "\n";
- 	Node* temp = head;
-	head=head->next;
-	delete temp;	
+ void deleteatend(Node* &head)
+ {
+ 	Node* temp = head, *prev;
+ 	while(temp->next != NULL)
+ 	{
+ 		prev = temp;
+ 		temp = temp->next;
+ 	}
+	cout<< "\nDeleting from tail :" << temp->data << "\n";
+	prev->next = NULL;
+	delete temp;
  }
  void display(Node* &head)
  {
@@ -50,7 +55,7 @@
 	 }
  	display(head);
  	int ins, POS;
-  deleteatpush(head);
+  	deleteatend(head);
 	cout << "New List  \n";
  	display(head);
   return 0;
