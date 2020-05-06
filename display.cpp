@@ -29,7 +29,7 @@
  		temp = temp->next;
 	 }
  }
- int main()
+ int_32 main()
  {
  	Node *head =NULL; 
  	int n;
