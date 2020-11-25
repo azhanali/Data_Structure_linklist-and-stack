@@ -1,19 +1,20 @@
 #include <bits/stdc++.h>
- using namespace std;
+using namespace std;
  
- class Node
- {
- 	public :
- 		int data ;
- 		Node * next;
+class Node
+{
+ public :
+ 	int data ;
+ 	Node * next;
  	
- 	Node (int item)
- 	{
-		data = item;
- 		next = NULL;
-	 }
- };
- void append(Node* &head, int new_data) 
+ Node (int item)
+ {
+	data = item;
+ 	next = NULL;
+	}
+};
+
+void append(Node* &head, int new_data) 
 {  
 	Node* new_node = new Node(new_data); 
 
@@ -31,6 +32,16 @@
 	return; 
 } 
  
+ void display(Node* &head)
+ {
+ 	Node* temp=head;
+ 	while (temp != NULL)
+ 	{
+ 		cout << temp->data << " ";
+ 		temp = temp->next;
+	 }
+ }
+
  int main()
  {
  	Node *head =NULL; 
